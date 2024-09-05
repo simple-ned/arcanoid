@@ -1,0 +1,56 @@
+{
+    "name": "Main",
+    "maps": [
+        {
+            "name": "Paddle",
+            "id": "d8652086-0c3c-4ab6-bc06-c3d33a4fed08",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "d67b4b31-29b4-44bc-92ce-0e5584ac613f",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "2D Vector",
+                    "id": "040885bd-d0d5-40d8-aee1-464d106cc538",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "Left",
+                    "id": "a52cfd03-6415-47ab-898d-0377c229a9a5",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Right",
+                    "id": "1b0464f9-0ac8-4226-8b5b-c341718bdc10",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
