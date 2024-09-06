@@ -26,12 +26,32 @@ public class Ball : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.name == "Paddle") {
+        var point = collision.GetContact(0);
+        var delta = (Vector2)transform.position - point.point;
+        if (delta.x != 0)
+        {
+            BounceX();
+        }
+
+        if (delta.y != 0)
+        {
             BounceY();
         }
+
+        Debug.Log($"Center - {transform.position}, Point - {point.point}");
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Debug.Log(other.name);
     }
 
     private void BounceY() {
         velocity.y *= -1;
+    }
+
+    private void BounceX()
+    {
+        velocity.x *= -1;
     }
 }

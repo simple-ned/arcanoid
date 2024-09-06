@@ -6,6 +6,7 @@ public class Paddle : MonoBehaviour
     private float speed = 1.0f;
 
     private Vector2 velocity;
+    private Vector2 input;
 
     private void Move() { 
         transform.Translate(velocity * speed * Time.deltaTime);
@@ -19,12 +20,27 @@ public class Paddle : MonoBehaviour
 
     private void GetInput()
     {
-        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) {
-            velocity = Vector2.right;
-        } else if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) {
-            velocity = Vector2.left;
-        } else {
-            velocity = Vector2.zero;
+        velocity = GetMouseInput();
+        if (velocity == Vector2.zero)
+        {
+            velocity = GetKeyboardInput();
         }
+    }
+
+    private Vector2 GetKeyboardInput()
+    {
+        if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow)) {
+            return Vector2.right;
+        }  
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow)) {
+            return Vector2.left;
+        }
+
+        return Vector2.zero;
+    }
+
+    private Vector2 GetMouseInput()
+    {
+        return Vector2.zero;
     }
 }
