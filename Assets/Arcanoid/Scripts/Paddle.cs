@@ -41,6 +41,6 @@ public class Paddle : MonoBehaviour
 
     private Vector2 GetMouseInput()
     {
-        return Vector2.zero;
+        return Input.GetAxis("Mouse X") * Vector2.right * 5f;
     }
 }
