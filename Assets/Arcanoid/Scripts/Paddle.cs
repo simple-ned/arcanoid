@@ -3,10 +3,10 @@ using UnityEngine;
 public class Paddle : MonoBehaviour
 {
     [SerializeField]
-    private float speed = 1.0f;
+    private float speed = 4.0f;
 
-    [SerializeField] 
-    private MouseInput mouseInput;
+    [SerializeField]
+    private float mouseSensitivity = 5f;
 
     private Vector2 velocity;
     private Vector2 input;
@@ -35,12 +35,7 @@ public class Paddle : MonoBehaviour
 
     private void GetInput()
     {
-        // velocity = mouseInput.MouseDelta;
-        if (mouseInput.MouseDelta != Vector2.zero)
-        {
-            transform.position = new (mouseInput.CurrentPosition.x, transform.position.y, 0);
-            return;
-        }
+        velocity = GetMouseInput();
 
         if (velocity == Vector2.zero)
         {
@@ -58,5 +53,11 @@ public class Paddle : MonoBehaviour
         }
 
         return Vector2.zero;
+    }
+
+    private Vector2 GetMouseInput()
+    {
+        var input = Input.GetAxis("Mouse X");
+        return Vector2.right * input * speed * mouseSensitivity;
     }
 }
