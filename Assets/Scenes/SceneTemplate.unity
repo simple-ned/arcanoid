@@ -303,6 +303,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1a65a3bf724dca4e9280c2da02f05af, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  previousPosition: {x: 0, y: 0}
+  currentPosition: {x: 0, y: 0}
 --- !u!1 &619394800
 GameObject:
   m_ObjectHideFlags: 0
@@ -593,12 +595,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5589550704958257686, guid: fa1f4da27eb8b974786df811cacce39a, type: 3}
       propertyPath: speed
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5589550704958257686, guid: fa1f4da27eb8b974786df811cacce39a, type: 3}
       propertyPath: mouseInput
       value: 
       objectReference: {fileID: 525895679}
+    - target: {fileID: 5589550704958257686, guid: fa1f4da27eb8b974786df811cacce39a, type: 3}
+      propertyPath: mouseSensitivity
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
