@@ -11,8 +11,11 @@ public class Paddle : MonoBehaviour
     private Vector2 velocity;
     private Vector2 input;
 
-    private float xMin = -4;
-    private float xMax = 4;
+    [SerializeField]
+    private BoxCollider2D boxCollider;
+
+    private float xMin = -4.2f;
+    private float xMax = 4.2f;
 
     private void Move() { 
         transform.Translate(velocity * speed * Time.deltaTime);
