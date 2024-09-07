@@ -39,7 +39,7 @@ public class Ball : MonoBehaviour
             BounceY();
         }
 
-        Debug.Log($"Center - {transform.position}, Point - {point.point}");
+        Debug.Log($"Center - {transform.position}, Point - {point.point}, Object - {collision.collider.name}");
     }
 
     private void OnTriggerEnter(Collider other)

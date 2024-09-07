@@ -6,6 +6,7 @@ public class Session : MonoBehaviour
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R)) {
+            Restart();
         }
     }
 
