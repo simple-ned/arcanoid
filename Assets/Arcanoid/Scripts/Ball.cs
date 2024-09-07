@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Ball : MonoBehaviour
+public class Ball : MonoBehaviour, IResetable
 {
     [SerializeField]
     private Vector2 velocity = Vector2.down;
@@ -8,11 +8,17 @@ public class Ball : MonoBehaviour
     [SerializeField]
     private float speed = 5.0f;
 
+    [SerializeField]
+    private Paddle paddle;
+
+    private Vector2 startPosition;
+
     public bool IsMoving { get; set; } = false;
 
     private void Start()
     {
         velocity *= speed;
+        startPosition = transform.localPosition;
     }
 
     void Update()
@@ -57,5 +63,12 @@ public class Ball : MonoBehaviour
     private void BounceX()
     {
         velocity.x *= -1;
+    }
+
+    public void Reset()
+    {
+        IsMoving = false; 
+        transform.parent = paddle.transform;
+        transform.localPosition = startPosition;
     }
 }
