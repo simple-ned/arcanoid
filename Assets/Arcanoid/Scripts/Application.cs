@@ -1,8 +1,8 @@
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class Application : MonoBehaviour
 {
-    public static GameManager Instance { get; private set; }
+    public static Application Instance { get; private set; }
 
     public GameSession Session { get; private set; }
 
