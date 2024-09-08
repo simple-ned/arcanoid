@@ -21,11 +21,11 @@ public class LaunchBall : MonoBehaviour
     {
         float angle = Mathf.Deg2Rad * (Random.value * 70 + 10);
 
-        Vector2 startVelocity = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+        //Vector2 startVelocity = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
 
         ball.IsMoving = true;
         transform.parent = null;
-        ball.SetVelocity(startVelocity);
+        ball.SetVelocity(Vector2.one.normalized);
 
         enabled = false;
     }

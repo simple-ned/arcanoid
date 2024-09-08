@@ -17,10 +17,6 @@ public class Paddle : MonoBehaviour
     private float xMin = -4.2f;
     private float xMax = 4.2f;
 
-    private void Move() { 
-        transform.Translate(velocity * speed * Time.deltaTime);
-    }
-
     private void Update()
     {
         GetInput();
@@ -34,6 +30,11 @@ public class Paddle : MonoBehaviour
         {
             transform.position = new(xMin, transform.position.y, 0);
         }
+    }
+
+    private void Move()
+    {
+        transform.Translate(velocity * speed * Time.deltaTime);
     }
 
     private void GetInput()
@@ -63,4 +64,11 @@ public class Paddle : MonoBehaviour
         var input = Input.GetAxis("Mouse X");
         return Vector2.right * input * speed * mouseSensitivity;
     }
+
+    // Hit factor to change angle of hit; -1..1
+    public float HitFactor(Vector2 point) { 
+        float xOffset = point.x - transform.position.x;
+        return xOffset / boxCollider.bounds.extents.x;
+    }
+
 }

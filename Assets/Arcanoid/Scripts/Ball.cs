@@ -19,7 +19,7 @@ public class Ball : MonoBehaviour, IResetable
         startPosition = transform.localPosition;
     }
 
-    void Update()
+    void FixedUpdate()
     {
         if (IsMoving) {
             Move();
@@ -37,6 +37,14 @@ public class Ball : MonoBehaviour, IResetable
 
         var normal = collision.contacts[0].normal;
 
+        if (collision.collider.name == "Paddle") {
+            var paddle = collision.collider.GetComponent<Paddle>();
+            var hitFactor = paddle.HitFactor(point.point);
+            BounceY(hitFactor);
+            Debug.Log($"Hit factor {hitFactor}");
+            return;
+        }
+
         if (Mathf.Abs(normal.x - normal.y) <= 0.2f) {
             BounceX();
             BounceY();
@@ -47,14 +55,14 @@ public class Ball : MonoBehaviour, IResetable
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    private void BounceY(float hitFactor = 0)
     {
-        Debug.Log(other.name);
-    }
-
-    private void BounceY()
-    {
-        velocity.y *= -1;
+        if (hitFactor == 0) {
+            velocity.y *= -1;
+        } else {
+            float angle = Mathf.Deg2Rad * (-hitFactor * 70 + 10 + 90);
+            velocity = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
+        }
     }
 
     private void BounceX()
@@ -62,13 +70,14 @@ public class Ball : MonoBehaviour, IResetable
         velocity.x *= -1;
     }
 
-    public void SetVelocity(Vector2 velocity) {
+    public void SetVelocity(Vector2 velocity)
+    {
         this.velocity = velocity;
     }
 
     public void Reset()
     {
-        IsMoving = false; 
+        IsMoving = false;
         transform.parent = paddle.transform;
         transform.localPosition = startPosition;
     }
