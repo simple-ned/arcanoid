@@ -145,8 +145,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71b4539b040f62c4b880e23098f3997b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 4
-  mouseSensitivity: 3
+  speed: 7
+  mouseSensitivity: 1.5
   boxCollider: {fileID: 8864044819240732506}
 --- !u!50 &4557490203362075419
 Rigidbody2D:
@@ -183,6 +183,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 473417719548511984}
     m_Modifications:
+    - target: {fileID: 1922774245178888667, guid: 7e6a4865226fc4a46851bdf8c88d92f1, type: 3}
+      propertyPath: speed
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1922774245178888667, guid: 7e6a4865226fc4a46851bdf8c88d92f1, type: 3}
       propertyPath: paddle
       value: 

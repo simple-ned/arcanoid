@@ -60,7 +60,7 @@ public class Ball : MonoBehaviour, IResetable
         if (hitFactor == 0) {
             velocity.y *= -1;
         } else {
-            float angle = Mathf.Deg2Rad * (-hitFactor * 70 + 10 + 90);
+            float angle = Mathf.Deg2Rad * (-hitFactor * 70 + 100);
             velocity = new Vector2(Mathf.Cos(angle), Mathf.Sin(angle));
         }
     }
