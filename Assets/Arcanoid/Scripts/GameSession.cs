@@ -31,7 +31,7 @@ public class GameSession : MonoBehaviour
         }
 
         foreach (var block in blocks) {
-            block.WasHit += b => {
+            block.Destroyed += b => {
                 blocks.Remove(b);
                 Destroy(b.gameObject);
                 Score += b.ScoreCost;
