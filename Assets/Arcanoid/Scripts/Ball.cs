@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Ball : MonoBehaviour, IResetable
 {
@@ -17,7 +18,6 @@ public class Ball : MonoBehaviour, IResetable
 
     private void Start()
     {
-        velocity *= speed;
         startPosition = transform.localPosition;
     }
 
@@ -30,23 +30,22 @@ public class Ball : MonoBehaviour, IResetable
 
     private void Move()
     {
-        transform.Translate(velocity * Time.deltaTime);
+        transform.Translate(velocity * speed * Time.deltaTime);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
         var point = collision.GetContact(0);
-        var delta = (Vector2)transform.position - point.point;
-        if (delta.x != 0) {
+
+        var normal = collision.contacts[0].normal;
+
+        if (Mathf.Abs(normal.x - normal.y) <= 0.2f) {
             BounceX();
-        }
-
-        if (delta.y != 0) {
             BounceY();
-        }
-
-        if (collision.collider.tag == "Blocks") {
-            Debug.Log($"Center - {transform.position}, Point - {point.point}, Object - {collision.collider.name}");
+        } else if (Mathf.Abs(normal.x) > Mathf.Abs(normal.y)) {
+            BounceX();
+        } else if (Mathf.Abs(normal.y) > Mathf.Abs(normal.x)) {
+            BounceY();
         }
     }
 
