@@ -35,25 +35,28 @@ public class Ball : MonoBehaviour, IResetable
     {
         var point = collision.GetContact(0);
 
-        var normal = collision.contacts[0].normal;
 
-        if (collision.collider.name == "Paddle") {
-            var paddle = collision.collider.GetComponent<Paddle>();
-            var hitFactor = paddle.HitFactor(point.point);
-            BounceY(hitFactor);
-            return;
+        foreach (var contact in collision.contacts) {
+            var normal = contact.normal;
+
+            if (collision.collider.name == "Paddle") {
+                var paddle = collision.collider.GetComponent<Paddle>();
+                var hitFactor = paddle.HitFactor(point.point);
+                BounceY(hitFactor);
+                return;
+            }
+
+            if (Mathf.Abs(normal.x - normal.y) < 0.1f) {
+                BounceX();
+                BounceY();
+            } else if (Mathf.Abs(normal.x) > Mathf.Abs(normal.y)) {
+                BounceX();
+            } else if (Mathf.Abs(normal.y) > Mathf.Abs(normal.x)) {
+                BounceY();
+            }
+
+            Debug.Log($"Normal {normal}, new velocity {velocity}, object {contact.collider.name}");
         }
-
-        if (Mathf.Abs(normal.x - normal.y) < 0.1f) {
-            BounceX();
-            BounceY();
-        } else if (Mathf.Abs(normal.x) > Mathf.Abs(normal.y)) {
-            BounceX();
-        } else if (Mathf.Abs(normal.y) > Mathf.Abs(normal.x)) {
-            BounceY();
-        }
-
-        Debug.Log($"Normal {normal}, new velocity {velocity}");
     }
 
     private void BounceY(float hitFactor = 0)
