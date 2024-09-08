@@ -5,13 +5,27 @@ using UnityEngine.SceneManagement;
 public class GameSession : MonoBehaviour
 {
     private List<IResetable> resetables;
+    private List<Block> blocks;
+
+    public int LivesCount { get; private set; } = 3;
 
     private void Start()
     {
         resetables = new();
+        blocks = new();
 
-        foreach (var root in SceneManager.GetActiveScene().GetRootGameObjects()) { 
+        var roots = SceneManager.GetActiveScene().GetRootGameObjects();
+
+        foreach (var root in roots) { 
             resetables.AddRange(root.GetComponentsInChildren<IResetable>());
+            blocks.AddRange(root.GetComponentsInChildren<Block>());
+        }
+
+        foreach (var block in blocks) {
+            block.WasHit += b => {
+                blocks.Remove(b);
+                Destroy(b.gameObject);
+            };
         }
     }
 
@@ -27,6 +41,9 @@ public class GameSession : MonoBehaviour
 
     public void Reset()
     {
+        LivesCount--;
+        Application.Instance.UIManager.UpdateUI();
+
         foreach (var r in resetables) { 
             r.Reset();
         }
@@ -36,4 +53,6 @@ public class GameSession : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+
+    
 }

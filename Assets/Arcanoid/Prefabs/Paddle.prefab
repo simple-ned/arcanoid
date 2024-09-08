@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 7
-  mouseSensitivity: 1.5
+  mouseSensitivity: 1
   boxCollider: {fileID: 8864044819240732506}
 --- !u!50 &4557490203362075419
 Rigidbody2D:
