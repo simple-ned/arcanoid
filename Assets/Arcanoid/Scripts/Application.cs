@@ -1,11 +1,13 @@
+using System;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Application : MonoBehaviour
 {
     public static Application Instance { get; private set; }
-    public GameSession Session { get; private set; }
     public GameUI UIManager { get; private set; }
+
+    private int numberOfLevels = 3;
 
 
     private void Awake()
@@ -19,19 +21,13 @@ public class Application : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
-    private void FindSession()
-    {
-        Session = FindObjectOfType<GameSession>();
-    }
-
-    public void BallLost()
-    { 
-        Session.BallLost();
-    }
-
     public void LoadLevel(int level) {
         SceneManager.LoadSceneAsync(level);
-        FindSession();
+    }
+
+    public void ReloadLevel()
+    {
+        SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void LoadMainMenu()
@@ -42,5 +38,16 @@ public class Application : MonoBehaviour
     public void Exit()
     {
         UnityEngine.Application.Quit();
+    }
+
+    internal void TryLoadNextLevel()
+    {
+        int nextSceneIndex = SceneManager.GetActiveScene().buildIndex + 1;
+
+        if (nextSceneIndex <= numberOfLevels) {
+            SceneManager.LoadScene(nextSceneIndex);
+        } else { 
+            LoadMainMenu();
+        }
     }
 }

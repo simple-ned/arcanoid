@@ -5,13 +5,18 @@ using UnityEngine.SceneManagement;
 
 public class GameSession : MonoBehaviour
 {
+    private GameUI gameUI;
+
     public Action GameWon;
     public Action GameLost;
+    public Action LivesCountChanged;
+    public Action ScoreChanged;
 
     private List<IResetable> resetables;
     private List<Block> blocks;
 
     public int LivesCount { get; private set; } = 3;
+    public int Score { get; private set; } = 0;
 
     private void Start()
     {
@@ -29,6 +34,8 @@ public class GameSession : MonoBehaviour
             block.WasHit += b => {
                 blocks.Remove(b);
                 Destroy(b.gameObject);
+                Score += b.ScoreCost;
+                ScoreChanged?.Invoke();
                 CheckForWin();
             };
         }
@@ -60,13 +67,24 @@ public class GameSession : MonoBehaviour
     public void BallLost()
     {
         LivesCount--;
-        Application.Instance.UIManager.UpdateUI();
+        LivesCountChanged?.Invoke();
+        Reset();
 
-        if (LivesCount > 0) {
-            Reset();
-        } else { 
+        if (LivesCount == 0) {
             GameLost?.Invoke();
             Debug.LogWarning("Game Lost");
         }
+
+    }
+
+    public void Pause(bool isPause)
+    {
+        Time.timeScale = isPause ? 0 : 1;
+    }
+
+    private void OnDestroy()
+    {
+        Time.timeScale = 1;
+
     }
 }

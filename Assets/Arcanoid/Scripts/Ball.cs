@@ -43,7 +43,7 @@ public class Ball : MonoBehaviour, IResetable
                 var paddle = collision.collider.GetComponent<Paddle>();
                 var hitFactor = paddle.HitFactor(point.point);
                 BounceY(hitFactor);
-                return;
+                continue;
             }
 
             if (Mathf.Abs(normal.x - normal.y) < 0.1f) {
