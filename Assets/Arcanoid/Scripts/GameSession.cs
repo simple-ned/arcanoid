@@ -1,9 +1,13 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameSession : MonoBehaviour
 {
+    public Action GameWon;
+    public Action GameLost;
+
     private List<IResetable> resetables;
     private List<Block> blocks;
 
@@ -25,6 +29,7 @@ public class GameSession : MonoBehaviour
             block.WasHit += b => {
                 blocks.Remove(b);
                 Destroy(b.gameObject);
+                CheckForWin();
             };
         }
     }
@@ -34,25 +39,34 @@ public class GameSession : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R)) {
             Reset();
         }
-        if (Input.GetKeyDown(KeyCode.Space)) {
-            Restart();
+    }
+
+    private void CheckForWin()
+    {
+        if (blocks.Count == 0) {
+            Reset();
+            GameWon?.Invoke();
+            Debug.LogWarning("Game Won");
         }
     }
 
-    public void Reset()
+    private void Reset()
     {
-        LivesCount--;
-        Application.Instance.UIManager.UpdateUI();
-
-        foreach (var r in resetables) { 
+        foreach (var r in resetables) {
             r.Reset();
         }
     }
 
-    private void Restart()
+    public void BallLost()
     {
-        SceneManager.LoadScene(0);
-    }
+        LivesCount--;
+        Application.Instance.UIManager.UpdateUI();
 
-    
+        if (LivesCount > 0) {
+            Reset();
+        } else { 
+            GameLost?.Invoke();
+            Debug.LogWarning("Game Lost");
+        }
+    }
 }

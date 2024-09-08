@@ -14,8 +14,6 @@ public class Application : MonoBehaviour
             Instance = this;
         }
 
-        FindSession();
-
         UIManager = FindObjectOfType<GameUI>();
 
         DontDestroyOnLoad(gameObject);
@@ -28,11 +26,21 @@ public class Application : MonoBehaviour
 
     public void BallLost()
     { 
-        Session.Reset();
+        Session.BallLost();
     }
 
     public void LoadLevel(int level) {
-        SceneManager.LoadScene(level);
+        SceneManager.LoadSceneAsync(level);
         FindSession();
+    }
+
+    public void LoadMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    public void Exit()
+    {
+        UnityEngine.Application.Quit();
     }
 }
