@@ -1,10 +1,8 @@
 using UnityEngine;
-using UnityEngine.UIElements;
 
 public class Ball : MonoBehaviour, IResetable
 {
-    [SerializeField]
-    private Vector2 velocity = Vector2.down;
+    private Vector2 velocity;
 
     [SerializeField]
     private float speed = 5.0f;
@@ -62,6 +60,10 @@ public class Ball : MonoBehaviour, IResetable
     private void BounceX()
     {
         velocity.x *= -1;
+    }
+
+    public void SetVelocity(Vector2 velocity) {
+        this.velocity = velocity;
     }
 
     public void Reset()
