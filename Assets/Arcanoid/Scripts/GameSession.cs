@@ -20,6 +20,9 @@ public class GameSession : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.R)) {
             Reset();
         }
+        if (Input.GetKeyDown(KeyCode.Space)) {
+            Restart();
+        }
     }
 
     public void Reset()

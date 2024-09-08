@@ -41,11 +41,10 @@ public class Ball : MonoBehaviour, IResetable
             var paddle = collision.collider.GetComponent<Paddle>();
             var hitFactor = paddle.HitFactor(point.point);
             BounceY(hitFactor);
-            Debug.Log($"Hit factor {hitFactor}");
             return;
         }
 
-        if (Mathf.Abs(normal.x - normal.y) <= 0.2f) {
+        if (Mathf.Abs(normal.x - normal.y) < 0.1f) {
             BounceX();
             BounceY();
         } else if (Mathf.Abs(normal.x) > Mathf.Abs(normal.y)) {
@@ -53,6 +52,8 @@ public class Ball : MonoBehaviour, IResetable
         } else if (Mathf.Abs(normal.y) > Mathf.Abs(normal.x)) {
             BounceY();
         }
+
+        Debug.Log($"Normal {normal}, new velocity {velocity}");
     }
 
     private void BounceY(float hitFactor = 0)
